@@ -39,6 +39,5 @@ public class PlayerMovement : NetworkBehaviour {
 	void CmdChangeItem ()
 	{
 		objects.transform.position = new Vector2 (0, 1);
-
 	}
 }
