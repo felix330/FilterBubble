@@ -20,8 +20,9 @@ public class PlayerMovement : NetworkBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetButton ("Jump")) {
-			objects.transform.position = new Vector2 (0, 1);
-			objects.BroadcastMessage ("ReceiveMessage");
+			Debug.Log ("Jump");
+			CmdChangeItem ();
+			//objects.BroadcastMessage ("ReceiveMessage");
 		}
 
 		if (!isLocalPlayer)
@@ -32,5 +33,12 @@ public class PlayerMovement : NetworkBehaviour {
 		if (Input.GetAxis ("Horizontal") != 0) {
 			transform.position = new Vector2 (transform.position.x + Input.GetAxis ("Horizontal"), transform.position.y);
 		}
+	}
+
+	[Command]
+	void CmdChangeItem ()
+	{
+		objects.transform.position = new Vector2 (0, 1);
+
 	}
 }
