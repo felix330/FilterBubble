@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114310248434751716}
   - component: {fileID: 114567408340953900}
   - component: {fileID: 114972522377770404}
+  - component: {fileID: 143792776680144676}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -116,6 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   child: {fileID: 1966226590855294}
+  objects: {fileID: 0}
 --- !u!114 &114972522377770404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -137,6 +139,23 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
+--- !u!143 &143792776680144676
+CharacterController:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1495741758667402}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &212648613172202004
 SpriteRenderer:
   m_ObjectHideFlags: 1
