@@ -8,10 +8,32 @@ public class PlayerMovement : NetworkBehaviour {
 	public GameObject child;
 	public GameObject objects;
 	private Vector2 moveDirection = Vector2.zero;
+	public GameObject myCamera;
+	public GameObject gamemaster;
+
+	public LayerMask p1Mask;
+	public LayerMask p2Mask;
 
 	// Use this for initialization
 	void Start () {
+		gamemaster = GameObject.Find ("GameMaster");
 		objects = GameObject.Find ("Objects");
+		Debug.Log (GetInstanceID());
+
+		Debug.Log (gamemaster);
+		CmdSendToGM ();
+
+		if (!isLocalPlayer)
+			myCamera.SetActive (false);
+			return;
+
+		myCamera.SetActive (true);
+
+		if (gamemaster.GetComponent<GameMaster> ().player1 == gameObject) {
+			myCamera.GetComponent<Camera> ().cullingMask = p1Mask;
+		}  else if (gamemaster.GetComponent<GameMaster> ().player2 == gameObject) {
+			myCamera.GetComponent<Camera> ().cullingMask = p2Mask;
+		}
 	}
 
 	public override void OnStartLocalPlayer() {
@@ -42,6 +64,11 @@ public class PlayerMovement : NetworkBehaviour {
 			//objects.BroadcastMessage ("ReceiveMessage");
 		}
 
+	}
+
+	[Command]
+	void CmdSendToGM () {
+		gamemaster.GetComponent<GameMaster>().addPlayer(gameObject);
 	}
 
 	[Command]
