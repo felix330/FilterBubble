@@ -11,6 +11,10 @@ public class PlayerMovement : NetworkBehaviour {
 	public GameObject myCamera;
 	public GameObject gamemaster;
 
+	[SyncVar(hook = "CmdChangeSwitch")]
+	public bool readyToSwitch;
+
+
 	public LayerMask p1Mask;
 	public LayerMask p2Mask;
 
@@ -19,6 +23,7 @@ public class PlayerMovement : NetworkBehaviour {
 		gamemaster = GameObject.Find ("GameMaster");
 		objects = GameObject.Find ("Objects");
 		Debug.Log (GetInstanceID());
+
 
 		Debug.Log (gamemaster);
 		CmdSendToGM ();
@@ -45,6 +50,17 @@ public class PlayerMovement : NetworkBehaviour {
 		if (!isLocalPlayer)
 			return;
 
+		if (Input.GetButtonDown ("Fire2")) {
+			Debug.Log ("Getting ready");
+			if (readyToSwitch) {
+				CmdChangeSwitch (false);
+
+			} else {
+				CmdChangeSwitch (true);
+				transform.position = new Vector3 (0, 5, 0);
+			}
+		}
+
 		CharacterController controller = GetComponent<CharacterController>();
 		if (controller.isGrounded) {
 			moveDirection = new Vector2 (Input.GetAxis ("Horizontal"), 0);
@@ -64,6 +80,27 @@ public class PlayerMovement : NetworkBehaviour {
 			//objects.BroadcastMessage ("ReceiveMessage");
 		}
 
+	}
+
+	[Command]
+	public void CmdSwitch(){
+		Debug.Log ("Switch");
+		if (gamemaster.GetComponent<GameMaster> ().player1 == gameObject) {
+			myCamera.GetComponent<Camera> ().cullingMask = p1Mask;
+			Debug.Log ("Switching to P1");
+		} else if (gamemaster.GetComponent<GameMaster> ().player2 == gameObject) {
+			myCamera.GetComponent<Camera> ().cullingMask = p2Mask;
+			Debug.Log ("Switching to P2");
+		} else {
+			Debug.Log("Error, there is nothing to Switch");
+		}
+		CmdChangeSwitch (false);
+	}
+
+	[Command]
+	void CmdChangeSwitch(bool b)
+	{
+		readyToSwitch = b;
 	}
 
 	[Command]

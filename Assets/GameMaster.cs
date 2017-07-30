@@ -24,6 +24,19 @@ public class GameMaster : MonoBehaviour {
 			spawnNow = false;
 			newObject.transform.parent = GameObject.Find ("Objects").transform;
 		}
+
+		if (player1.GetComponent<PlayerMovement> ().readyToSwitch && player2.GetComponent<PlayerMovement> ().readyToSwitch) {
+			GameObject playerTemp = player1;
+			player1 = player2;
+			player2 = playerTemp;
+
+			Debug.Log ("Attempting Switch");
+
+			player1.GetComponent<PlayerMovement> ().CmdSwitch ();
+			player2.GetComponent<PlayerMovement> ().CmdSwitch ();
+
+
+		}
 	}
 
 	public void addPlayer(GameObject g)
