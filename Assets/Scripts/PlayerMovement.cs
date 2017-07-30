@@ -48,11 +48,7 @@ public class PlayerMovement : NetworkBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		/*if (gamemaster.GetComponent<GameMaster> ().player1 == gameObject) {
-			myCamera.GetComponent<Camera> ().cullingMask = p1Mask;
-		}  else if (gamemaster.GetComponent<GameMaster> ().player2 == gameObject) {
-			myCamera.GetComponent<Camera> ().cullingMask = p2Mask;
-		}*/
+
 
 		//RpcSwitch ();
 		
