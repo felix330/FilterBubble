@@ -277,6 +277,7 @@ MonoBehaviour:
   p2Mask:
     serializedVersion: 2
     m_Bits: 545
+  questionMark: {fileID: 1847896135792362}
 --- !u!114 &114819410514740458
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -431,7 +432,7 @@ SpriteRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1847896135792362}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_MotionVectors: 1

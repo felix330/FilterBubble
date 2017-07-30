@@ -66,7 +66,17 @@ public class GameMaster : NetworkBehaviour {
 			player2.GetComponent<PlayerMovement> ().RpcChangeWalkDir (2);
 		}
 
+		if (player1.GetComponent<PlayerMovement> ().readyToSwitch) {
+			player1.GetComponent<PlayerMovement> ().RpcSetVisibility (true);
+		} else {
+			player1.GetComponent<PlayerMovement> ().RpcSetVisibility (false);
+		}
 
+		if (player2.GetComponent<PlayerMovement> ().readyToSwitch) {
+			player2.GetComponent<PlayerMovement> ().RpcSetVisibility (true);
+		} else {
+			player2.GetComponent<PlayerMovement> ().RpcSetVisibility (false);
+		}
 
 		if (player1.GetComponent<PlayerMovement> ().readyToSwitch && player2.GetComponent<PlayerMovement> ().readyToSwitch) {
 			GameObject playerTemp = player1;

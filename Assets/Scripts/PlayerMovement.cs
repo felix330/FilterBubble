@@ -33,6 +33,8 @@ public class PlayerMovement : NetworkBehaviour {
 	public LayerMask p1Mask;
 	public LayerMask p2Mask;
 
+	public GameObject questionMark;
+
 
 
 	// Use this for initialization
@@ -215,7 +217,14 @@ public class PlayerMovement : NetworkBehaviour {
 	[Command]
 	void CmdChangeSwitch(bool b)
 	{
+		questionMark.GetComponent<SpriteRenderer> ().enabled = b;
 		readyToSwitch = b;
+	}
+
+	[ClientRpc]
+	public void RpcSetVisibility(bool b)
+	{
+		questionMark.GetComponent<SpriteRenderer> ().enabled = b;
 	}
 
 	[Command]
