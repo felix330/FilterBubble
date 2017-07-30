@@ -16,9 +16,7 @@ public class ButtonSwitch : NetworkBehaviour {
 		
 	}
 	void OnTriggerEnter () {
-		//transform.Translate (Vector3.down);
 		transform.localPosition = new Vector3 (0,-0.3F,0.1F);
 		trigger.transform.Translate(new Vector3 (0, -3, 0));
-		//trigger.transform.transl
 	}
 }
