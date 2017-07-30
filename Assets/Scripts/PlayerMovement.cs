@@ -11,7 +11,10 @@ public class PlayerMovement : NetworkBehaviour {
 	public GameObject myCamera;
 	public GameObject gamemaster;
 
+	public float angle;
+	public float period;
 
+	private float time;
 
 	public Sprite p1Sprite;
 	public Sprite p2Sprite;
@@ -24,8 +27,13 @@ public class PlayerMovement : NetworkBehaviour {
 	[SyncVar(hook = "CmdChangeWalkDir")]
 	public int WalkDir;
 
+	[SyncVar(hook = "CmdChangeChildAngle")]
+		public Vector3 ChildVector; 
+
 	public LayerMask p1Mask;
 	public LayerMask p2Mask;
+
+
 
 	// Use this for initialization
 	void Start () {
@@ -133,6 +141,24 @@ public class PlayerMovement : NetworkBehaviour {
 				rotateRight = true;
 			}
 		}
+	}
+
+	[ClientRpc]
+	public void RpcUpdate()
+	{
+		if (WalkDir != 0) {
+			time = time + Time.deltaTime;
+			float phase = Mathf.Sin (time / period);
+			Vector3 newRot = new Vector3 (0, 0, phase * angle);
+			CmdChangeChildAngle (newRot);
+			child.transform.localRotation = Quaternion.Euler(ChildVector);
+		}
+	}
+
+	[Command] 
+	public void CmdChangeChildAngle(Vector3 v) {
+		ChildVector = v;
+		child.transform.localRotation = Quaternion.Euler(ChildVector);
 	}
 
 	[ClientRpc]

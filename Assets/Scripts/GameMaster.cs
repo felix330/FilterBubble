@@ -11,6 +11,8 @@ public class GameMaster : NetworkBehaviour {
 
 	public bool playersVisible;
 
+
+
 	[SyncVar]
 	public GameObject player1;
 	[SyncVar]
@@ -45,6 +47,9 @@ public class GameMaster : NetworkBehaviour {
 				player1.GetComponent<PlayerMovement> ().RpcChangeChildLayer (8);
 				player2.GetComponent<PlayerMovement> ().RpcChangeChildLayer (9);
 			}
+
+			player1.GetComponent<PlayerMovement> ().RpcUpdate ();
+			player2.GetComponent<PlayerMovement> ().RpcUpdate ();
 		}
 
 		if (player1.GetComponent<PlayerMovement>().WalkDir == 0) {
@@ -60,6 +65,8 @@ public class GameMaster : NetworkBehaviour {
 		} else if (player2.GetComponent<PlayerMovement>().WalkDir == 2) {
 			player2.GetComponent<PlayerMovement> ().RpcChangeWalkDir (2);
 		}
+
+
 
 		if (player1.GetComponent<PlayerMovement> ().readyToSwitch && player2.GetComponent<PlayerMovement> ().readyToSwitch) {
 			GameObject playerTemp = player1;
