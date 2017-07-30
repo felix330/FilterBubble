@@ -30,6 +30,11 @@ public class GameMaster : NetworkBehaviour {
 			newObject.transform.parent = GameObject.Find ("Objects").transform;
 		}
 
+		if (player1 != null && player2 != null) {
+			player1.GetComponent<PlayerMovement> ().RpcChangeSprite (1);
+			player2.GetComponent<PlayerMovement> ().RpcChangeSprite (2);
+		}
+
 		if (player1.GetComponent<PlayerMovement> ().readyToSwitch && player2.GetComponent<PlayerMovement> ().readyToSwitch) {
 			GameObject playerTemp = player1;
 			player1 = player2;

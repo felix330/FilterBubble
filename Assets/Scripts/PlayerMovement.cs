@@ -10,6 +10,12 @@ public class PlayerMovement : NetworkBehaviour {
 	private Vector2 moveDirection = Vector2.zero;
 	public GameObject myCamera;
 	public GameObject gamemaster;
+	public bool isVisible;
+
+	public Sprite p1Sprite;
+	public Sprite p2Sprite;
+
+	private bool rotateRight;
 
 	[SyncVar(hook = "CmdChangeSwitch")]
 	public bool readyToSwitch;
@@ -98,6 +104,16 @@ public class PlayerMovement : NetworkBehaviour {
 			myCamera.GetComponent<Camera> ().cullingMask = p1Mask;
 		} else if (i == 2) {
 			myCamera.GetComponent<Camera> ().cullingMask = p2Mask;
+		}
+	}
+
+	[ClientRpc]
+	public void RpcChangeSprite(int i)
+	{
+		if (i == 1) {
+			child.GetComponent<SpriteRenderer> ().sprite = p1Sprite;
+		} else if (i == 2) {
+			child.GetComponent<SpriteRenderer> ().sprite = p2Sprite;
 		}
 	}
 

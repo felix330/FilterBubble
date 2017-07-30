@@ -233,6 +233,9 @@ MonoBehaviour:
   objects: {fileID: 0}
   myCamera: {fileID: 1032697430109508}
   gamemaster: {fileID: 0}
+  isVisible: 0
+  p1Sprite: {fileID: 21300000, guid: 326052699cfc49c42986b2f705b1c7dd, type: 3}
+  p2Sprite: {fileID: 21300000, guid: 515c515bd0f9fbf40b90c3323d7f35f7, type: 3}
   readyToSwitch: 0
   p1Mask:
     serializedVersion: 2
