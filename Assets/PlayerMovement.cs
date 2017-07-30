@@ -85,10 +85,10 @@ public class PlayerMovement : NetworkBehaviour {
 	[Command]
 	public void CmdSwitch(){
 		Debug.Log ("Switch");
-		if (gamemaster.GetComponent<GameMaster> ().player1 == gameObject) {
+		if (myCamera.GetComponent<Camera>().cullingMask == p2Mask) {
 			myCamera.GetComponent<Camera> ().cullingMask = p1Mask;
 			Debug.Log ("Switching to P1");
-		} else if (gamemaster.GetComponent<GameMaster> ().player2 == gameObject) {
+		} else if (myCamera.GetComponent<Camera>().cullingMask == p1Mask) {
 			myCamera.GetComponent<Camera> ().cullingMask = p2Mask;
 			Debug.Log ("Switching to P2");
 		} else {
