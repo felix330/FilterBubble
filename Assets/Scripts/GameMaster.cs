@@ -9,6 +9,8 @@ public class GameMaster : NetworkBehaviour {
 	public bool spawnNow;
 	public bool connect;
 
+	public bool playersVisible;
+
 	[SyncVar]
 	public GameObject player1;
 	[SyncVar]
@@ -23,6 +25,8 @@ public class GameMaster : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
+
 		if (spawnNow) {
 			GameObject newObject = Instantiate (testObject);
 			NetworkServer.Spawn (newObject);
@@ -33,6 +37,28 @@ public class GameMaster : NetworkBehaviour {
 		if (player1 != null && player2 != null) {
 			player1.GetComponent<PlayerMovement> ().RpcChangeSprite (1);
 			player2.GetComponent<PlayerMovement> ().RpcChangeSprite (2);
+
+			if (playersVisible) {
+				player1.GetComponent<PlayerMovement> ().RpcChangeChildLayer (0);
+				player2.GetComponent<PlayerMovement> ().RpcChangeChildLayer (0);
+			} else {
+				player1.GetComponent<PlayerMovement> ().RpcChangeChildLayer (8);
+				player2.GetComponent<PlayerMovement> ().RpcChangeChildLayer (9);
+			}
+		}
+
+		if (player1.GetComponent<PlayerMovement>().WalkDir == 0) {
+		} else if (player1.GetComponent<PlayerMovement>().WalkDir == 1) {
+			player1.GetComponent<PlayerMovement> ().RpcChangeWalkDir (1);
+		} else if (player1.GetComponent<PlayerMovement>().WalkDir == 2) {
+			player1.GetComponent<PlayerMovement> ().RpcChangeWalkDir (2);
+		}
+
+		if (player2.GetComponent<PlayerMovement>().WalkDir == 0) {
+		} else if (player2.GetComponent<PlayerMovement>().WalkDir == 1) {
+			player2.GetComponent<PlayerMovement> ().RpcChangeWalkDir (1);
+		} else if (player2.GetComponent<PlayerMovement>().WalkDir == 2) {
+			player2.GetComponent<PlayerMovement> ().RpcChangeWalkDir (2);
 		}
 
 		if (player1.GetComponent<PlayerMovement> ().readyToSwitch && player2.GetComponent<PlayerMovement> ().readyToSwitch) {

@@ -58,6 +58,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4125200112317440}
   - component: {fileID: 212124922062927460}
+  - component: {fileID: 114121649119696026}
+  - component: {fileID: 114391584483309628}
   m_Layer: 0
   m_Name: Sprite_Green
   m_TagString: Untagged
@@ -186,6 +188,38 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1032697430109508}
   m_Enabled: 1
+--- !u!114 &114121649119696026
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1502724215450328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 183
+    i1: 180
+    i2: 73
+    i3: 7
+    i4: 29
+    i5: 55
+    i6: 193
+    i7: 132
+    i8: 43
+    i9: 78
+    i10: 122
+    i11: 172
+    i12: 100
+    i13: 246
+    i14: 237
+    i15: 107
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114310248434751716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -218,6 +252,27 @@ MonoBehaviour:
     i15: 107
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114391584483309628
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1502724215450328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &114567408340953900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -233,10 +288,10 @@ MonoBehaviour:
   objects: {fileID: 0}
   myCamera: {fileID: 1032697430109508}
   gamemaster: {fileID: 0}
-  isVisible: 0
   p1Sprite: {fileID: 21300000, guid: 326052699cfc49c42986b2f705b1c7dd, type: 3}
   p2Sprite: {fileID: 21300000, guid: 515c515bd0f9fbf40b90c3323d7f35f7, type: 3}
   readyToSwitch: 0
+  WalkDir: 0
   p1Mask:
     serializedVersion: 2
     m_Bits: 289
