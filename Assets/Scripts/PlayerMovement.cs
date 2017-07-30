@@ -42,7 +42,7 @@ public class PlayerMovement : NetworkBehaviour {
 	}
 
 	public override void OnStartLocalPlayer() {
-		child.GetComponent<SpriteRenderer>().material.color = Color.green;
+		//child.GetComponent<SpriteRenderer>().material.color = Color.green;
 	}
 	
 	// Update is called once per frame
@@ -66,6 +66,11 @@ public class PlayerMovement : NetworkBehaviour {
 		}
 
 		CharacterController controller = GetComponent<CharacterController>();
+		if (Input.GetAxis ("Horizontal") < 0) {
+			child.transform.localScale = new Vector3 (-1.36f, child.transform.localScale.y, child.transform.localScale.z);
+		} else if (Input.GetAxis ("Horizontal") > 0) {
+			child.transform.localScale = new Vector3 (1.36f, child.transform.localScale.y, child.transform.localScale.z);
+		}
 		if (controller.isGrounded) {
 			moveDirection = new Vector2 (Input.GetAxis ("Horizontal"), 0);
 			moveDirection = transform.TransformDirection (moveDirection);
