@@ -10,7 +10,8 @@ public class PlayerMovement : NetworkBehaviour {
 	private Vector2 moveDirection = Vector2.zero;
 	public GameObject myCamera;
 	public GameObject gamemaster;
-	public bool isVisible;
+
+
 
 	public Sprite p1Sprite;
 	public Sprite p2Sprite;
@@ -20,6 +21,8 @@ public class PlayerMovement : NetworkBehaviour {
 	[SyncVar(hook = "CmdChangeSwitch")]
 	public bool readyToSwitch;
 
+	[SyncVar(hook = "CmdChangeWalkDir")]
+	public int WalkDir;
 
 	public LayerMask p1Mask;
 	public LayerMask p2Mask;
@@ -30,6 +33,9 @@ public class PlayerMovement : NetworkBehaviour {
 		objects = GameObject.Find ("Objects");
 		Debug.Log (GetInstanceID());
 
+
+
+		CmdSpawnChild();
 
 		Debug.Log (gamemaster);
 		CmdSendToGM ();
@@ -65,7 +71,6 @@ public class PlayerMovement : NetworkBehaviour {
 			Debug.Log ("Getting ready");
 			if (readyToSwitch) {
 				CmdChangeSwitch (false);
-
 			} else {
 				CmdChangeSwitch (true);
 			}
@@ -73,9 +78,13 @@ public class PlayerMovement : NetworkBehaviour {
 
 		CharacterController controller = GetComponent<CharacterController>();
 		if (Input.GetAxis ("Horizontal") < 0) {
-			child.transform.localScale = new Vector3 (-1.36f, child.transform.localScale.y, child.transform.localScale.z);
+			
+			CmdChangeWalkDir (1);
 		} else if (Input.GetAxis ("Horizontal") > 0) {
-			child.transform.localScale = new Vector3 (1.36f, child.transform.localScale.y, child.transform.localScale.z);
+			CmdChangeWalkDir (2);
+
+		} else {
+			CmdChangeWalkDir (0);
 		}
 		if (controller.isGrounded) {
 			moveDirection = new Vector2 (Input.GetAxis ("Horizontal"), 0);
@@ -95,6 +104,51 @@ public class PlayerMovement : NetworkBehaviour {
 			//objects.BroadcastMessage ("ReceiveMessage");
 		}
 
+	}
+
+	[Command]
+	void CmdChangeWalkDir(int i) {
+		WalkDir = i;
+	}
+
+	[Command]
+	void CmdSpawnChild() {
+	}
+
+	[Command]
+	void CmdWalkWiggle() {
+		if (rotateRight) {
+			Debug.Log ("Rotating Right");
+			if (child.transform.localEulerAngles.z < 20) {
+				child.transform.localEulerAngles += new Vector3 (0,0,50*Time.deltaTime);
+			} else {
+				rotateRight = false;
+			}
+		} else {
+			if (child.transform.localEulerAngles.z > -20) {
+				Debug.Log ("Rotating left");
+				child.transform.localEulerAngles -= new Vector3 (0,0,50*Time.deltaTime);
+			} else {
+				Debug.Log ("Reset");
+				rotateRight = true;
+			}
+		}
+	}
+
+	[ClientRpc]
+	public void RpcChangeWalkDir (int i)
+	{
+		if (i == 1) {
+			child.transform.localScale = new Vector3 (-1.36f, child.transform.localScale.y, child.transform.localScale.z);
+		} else if (i == 2) {
+			child.transform.localScale = new Vector3 (1.36f, child.transform.localScale.y, child.transform.localScale.z);
+		}
+	}
+
+	[ClientRpc]
+	public void RpcChangeChildLayer (int i)
+	{
+		child.layer = i;
 	}
 
 	[ClientRpc]
