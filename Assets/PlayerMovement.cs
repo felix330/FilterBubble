@@ -66,7 +66,6 @@ public class PlayerMovement : NetworkBehaviour {
 
 			} else {
 				CmdChangeSwitch (true);
-				transform.position = new Vector3 (0, 5, 0);
 			}
 		}
 
