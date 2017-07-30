@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class GameMaster : MonoBehaviour {
+public class GameMaster : NetworkBehaviour {
 
 	public GameObject testObject;
 	public bool spawnNow;
 	public bool connect;
 
+	[SyncVar]
 	public GameObject player1;
+	[SyncVar]
 	public GameObject player2;
+
+	public LayerMask p1Mask;
+	public LayerMask p2Mask;
 
 	// Use this for initialization
 	void Start () {
@@ -32,11 +37,17 @@ public class GameMaster : MonoBehaviour {
 
 			Debug.Log ("Attempting Switch");
 
-			player1.GetComponent<PlayerMovement> ().CmdSwitch ();
-			player2.GetComponent<PlayerMovement> ().CmdSwitch ();
+			player1.GetComponent<PlayerMovement> ().RpcSwitch ();
+			player2.GetComponent<PlayerMovement> ().RpcSwitch ();
 
+			//player1.GetComponent<PlayerMovement> ().myCamera.GetComponent<Camera> ().cullingMask = p1Mask;
+			//player2.GetComponent<PlayerMovement> ().myCamera.GetComponent<Camera> ().cullingMask = p2Mask;
 
+			//player1.GetComponent<PlayerMovement> ().RpcChangeLayer (1);
+			//player2.GetComponent<PlayerMovement> ().RpcChangeLayer (2);
 		}
+		player1.GetComponent<PlayerMovement> ().RpcChangeLayer (1);
+		player2.GetComponent<PlayerMovement> ().RpcChangeLayer (2);
 	}
 
 	public void addPlayer(GameObject g)

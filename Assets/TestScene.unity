@@ -337,6 +337,12 @@ MonoBehaviour:
   connect: 0
   player1: {fileID: 0}
   player2: {fileID: 0}
+  p1Mask:
+    serializedVersion: 2
+    m_Bits: 289
+  p2Mask:
+    serializedVersion: 2
+    m_Bits: 545
 --- !u!1 &2003284991
 GameObject:
   m_ObjectHideFlags: 0

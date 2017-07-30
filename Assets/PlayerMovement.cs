@@ -47,6 +47,15 @@ public class PlayerMovement : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		/*if (gamemaster.GetComponent<GameMaster> ().player1 == gameObject) {
+			myCamera.GetComponent<Camera> ().cullingMask = p1Mask;
+		}  else if (gamemaster.GetComponent<GameMaster> ().player2 == gameObject) {
+			myCamera.GetComponent<Camera> ().cullingMask = p2Mask;
+		}*/
+
+		//RpcSwitch ();
+		
 		if (!isLocalPlayer)
 			return;
 
@@ -82,18 +91,28 @@ public class PlayerMovement : NetworkBehaviour {
 
 	}
 
-	[Command]
-	public void CmdSwitch(){
+	[ClientRpc]
+	public void RpcChangeLayer(int i)
+	{
+		if (i == 1) {
+			myCamera.GetComponent<Camera> ().cullingMask = p1Mask;
+		} else if (i == 2) {
+			myCamera.GetComponent<Camera> ().cullingMask = p2Mask;
+		}
+	}
+
+	[Client]
+	public void RpcSwitch(){
 		Debug.Log ("Switch");
-		if (myCamera.GetComponent<Camera>().cullingMask == p2Mask) {
+		/*if (gamemaster.GetComponent<GameMaster> ().player1 == gameObject) {
 			myCamera.GetComponent<Camera> ().cullingMask = p1Mask;
 			Debug.Log ("Switching to P1");
-		} else if (myCamera.GetComponent<Camera>().cullingMask == p1Mask) {
+		} else if (gamemaster.GetComponent<GameMaster> ().player2 == gameObject) {
 			myCamera.GetComponent<Camera> ().cullingMask = p2Mask;
 			Debug.Log ("Switching to P2");
 		} else {
 			Debug.Log("Error, there is nothing to Switch");
-		}
+		}*/
 		CmdChangeSwitch (false);
 	}
 
@@ -111,6 +130,6 @@ public class PlayerMovement : NetworkBehaviour {
 	[Command]
 	void CmdChangeItem ()
 	{
-		objects.transform.position = new Vector2 (0, 1);
+		//objects.transform.position = new Vector2 (0, 1);
 	}
 }
